@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: workon
+spec:
+  selector:
+    app: workon
+  ports:
+  - port: 80
+    targetPort: 8080
+  type: LoadBalancer

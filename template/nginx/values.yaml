@@ -1,0 +1,7 @@
+app:
+  replicas: 2
+  containerPort: 80
+  image:
+    repository: nginx
+    tag: latest
+  
