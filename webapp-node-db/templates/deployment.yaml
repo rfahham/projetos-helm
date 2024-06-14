@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name}}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Release.Name}}
+  replicas: {{ .Values.app.replicas}}
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name}}
+    spec:
+      containers:
+      - name: {{ .Release.Name}}
+        image: {{ .Values.app.image.repository }}:{{ .Values.app.image.tag}}
+        ports:
+        - containerPort: {{ .Values.app.containerPort}}
+        {{-if .Values.global.postgresql.enable }}
+        env:
+        - name: DB_DATABASE
+          values: {{ .Values.global.postgresql.auth.database }}
+        - name: DB_PASSWORD
+          values: {{ .Values.global.postgresql.auth.password }}
+        - name: DB_USERNAME
+          values: {{ .Values.global.postgresql.auth.username }}
+        - name: DB_HOST
+          values: {{ .Release.Name}}
+        {{- end }}

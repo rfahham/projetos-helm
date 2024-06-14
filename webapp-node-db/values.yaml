@@ -1,0 +1,19 @@
+app:
+  replicas: 2
+  containerPort: 80
+  image:
+    repository: fabricioveronez/conversao-temperatura
+    tag: v1
+  service:
+    type: LoadBalancer
+    port: 80
+    targetPort: 8080
+
+
+global:
+  postgresql: 
+    enable: true
+    auth:
+      username: dbusername
+      password: dbpassword
+      database: dbdatabase

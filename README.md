@@ -1,5 +1,7 @@
 # projetos-helm
 
+https://www.youtube.com/watch?v=VTQpe-ZRgsk
+
 ## Listando os projetos
 
 ```bash
@@ -75,6 +77,12 @@ NOTES:
 
 ```bash
 helm install webapp ./webapp-node/ --debug --dry-run > debug.yaml
+```
+
+## Baixar dependências (postgresql)
+
+```bash
+helm dependency build ./webapp-node-db/
 ```
 
 ## Para deployar
