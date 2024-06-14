@@ -1,0 +1,60 @@
+NAME: webapp
+LAST DEPLOYED: Thu Jun 13 21:25:38 2024
+NAMESPACE: workon
+STATUS: pending-install
+REVISION: 1
+TEST SUITE: None
+USER-SUPPLIED VALUES:
+{}
+
+COMPUTED VALUES:
+app:
+  containerPort: 80
+  image:
+    repository: nginx
+    tag: latest
+  replicas: 2
+  service:
+    port: 80
+    targetPort: 8080
+    type: LoadBalancer
+
+HOOKS:
+MANIFEST:
+---
+# Source: webapp-node/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: webapp
+spec:
+  selector:
+    app: webapp
+  ports:
+  - port: 80
+    targetPort: 8080
+  type: LoadBalancer
+---
+# Source: webapp-node/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapp
+spec:
+  selector:
+    matchLabels:
+      app: webapp
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: webapp
+    spec:
+      containers:
+      - name: webapp
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+
+NOTES:
+
